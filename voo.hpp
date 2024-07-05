@@ -25,12 +25,15 @@ public:
     int getCodigo() const;
     estadoVoo getEstado();
     list<astronauta> getTripulantes();
+
+    const list<astronauta>& getTripulantes() const;
+    // list<astronauta>& getTripulantes();
    
     void adicionarAstronauta(const astronauta& astro);
     void removerAstronauta(const string& cpf);
     bool isAstronautaCadastrado(const string& cpf);
-
     bool astronautaEstaNoVoo(const string& cpf);
+    void setEstado(estadoVoo novoEstado);
 };
 
 #endif // VOO_HPP

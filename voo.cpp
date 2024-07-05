@@ -19,6 +19,15 @@ list<astronauta> voo::getTripulantes() {
     return Tripulantes;
 }
 
+
+// const list<astronauta>& voo::getTripulantes() const {
+//     return Tripulantes;
+// }
+
+// list<astronauta>& voo::getTripulantes() {
+//     return Tripulantes;
+// }
+
 void voo::adicionarAstronauta(const astronauta& astro) {
     Tripulantes.push_back(astro);
 }
@@ -48,4 +57,8 @@ bool voo::astronautaEstaNoVoo(const string& cpf) {
         }
     }
     return false;
+}
+
+void voo::setEstado(estadoVoo novoEstado) {
+    Estado = novoEstado;
 }

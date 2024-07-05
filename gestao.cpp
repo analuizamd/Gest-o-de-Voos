@@ -85,12 +85,12 @@ void gestao::addAstronautaVoo(){
     int codigoVoo;
 
     if(todosAstronautas.empty()){
-        cout << "** Nenhum astronauta foi cadastrado até o momento."<< endl;
+        cout << "Nenhum astronauta foi cadastrado até o momento."<< endl;
         return;
     }
 
     if(todosVoos.empty()){
-        cout << "** Nenhum voo foi cadastrado até o momento."<< endl;
+        cout << "Nenhum voo foi cadastrado até o momento."<< endl;
         return;
     }
 
@@ -113,15 +113,17 @@ void gestao::addAstronautaVoo(){
     }
 
     // Verificar disponibilidade e vida do astronauta encontrado
-    if (!encontrado->getDisponibilidade()) {
-        cout << "Erro: Astronauta não disponível." << endl;
-        return;
-    }
+    // if (!encontrado->getDisponibilidade()) {
+    //     cout << "Erro: Astronauta não disponível." << endl;
+    //     return;
+    // }
 
     if (!encontrado->getVida()) {
         cout << "Erro: O astronauta não está vivo." << endl;
         return;
     }
+
+    //Código acima não funciona
 
     cout << "Digite o código do voo: ";
     cin >> codigoVoo;
@@ -157,7 +159,7 @@ void gestao::addAstronautaVoo(){
     vooEncontrado->adicionarAstronauta(*encontrado);
 
     // Definir disponibilidade como false após verificação
-    encontrado->setDisponibilidade(false);
+    // encontrado->setDisponibilidade(false);
 
     cout << "Astronauta adicionado ao voo com sucesso!" << endl;
 }
@@ -167,7 +169,7 @@ void gestao::removerAstronauta(){
     int codigoVoo;
 
     if(todosAstronautas.empty()){
-        cout << "** Nenhum astronauta foi cadastrado até o momento."<< endl;
+        cout << "Nenhum astronauta foi cadastrado até o momento."<< endl;
         return;
     }
 
@@ -232,3 +234,71 @@ void gestao::removerAstronauta(){
     cout << "Astronauta removido do voo com sucesso!" << endl;
 
 }
+
+void gestao::lancarVoo(){
+    int codigoVoo;
+
+    if(todosVoos.empty()){
+        cout << "Nenhum voo foi cadastrado até o momento."<< endl;
+        return;
+    }
+
+    cout << "Operação lançar voo." << endl;
+
+    cout << "Digite o código do voo: ";
+    cin >> codigoVoo;
+
+    // Procurar o voo na lista de voos cadastrados
+    voo* vooEncontrado = nullptr;
+    for (auto& v : todosVoos) {
+        if (v.getCodigo() == codigoVoo) {
+            vooEncontrado = &v;
+            break;
+        }
+    }
+
+    if (!vooEncontrado) {
+        cout << "Erro: Voo não encontrado." << endl;
+        return;
+    }
+
+    // Verificar se o estado do voo é planejado
+    if (vooEncontrado->getEstado() != PLANEJADO) {
+        cout << "Erro: O voo já foi lançado ou não está planejado." << endl;
+        return;
+    }
+
+    //Verifica se há pelo menos um astronauta no voo
+    if (vooEncontrado->getTripulantes().empty()) {
+        cout << "Erro: Não há astronautas cadastrados no voo." << endl;
+        return;
+    }
+
+    //Verificar se todos os astronautas do voo estão disponíveis
+    for (const auto& astro : vooEncontrado->getTripulantes()) {
+        if (!astro.getDisponibilidade()) {
+            cout << "Erro: O astronauta " << astro.getNome() << " não está disponível." << endl;
+            return;
+        }
+    }
+
+    // Lançar o voo alterando seu estado para LANCADO
+    vooEncontrado->setEstado(LANCADO);
+    cout << "Voo lançado com sucesso!" << endl;
+
+    // Definir disponibilidade de todos os astronautas do voo como false após verificação
+    for (auto& astro : vooEncontrado->getTripulantes()) {
+        astro.setDisponibilidade(false);
+    }
+
+    // Atualizar a lista de voos de todos os astronautas
+    for (auto& astro : vooEncontrado->getTripulantes()) {
+        astro.adicionarVoo(codigoVoo);
+    }
+
+}
+
+void gestao::explodirVoo(){
+    
+}
+

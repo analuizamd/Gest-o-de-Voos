@@ -42,7 +42,7 @@ int main(){
                 sistema.removerAstronauta();
                 break;
             case 5:
-                //função para lançar um voo
+                sistema.lancarVoo();
                 break;
             case 6:
                 //função para explodir um voo
@@ -52,6 +52,7 @@ int main(){
                 break;
             case 8:
                 //função para listar todos os voos
+                //a lista do astronauta é atualizada
                 break;
             case 9:
                 //função para listar todos os astronautas mortos

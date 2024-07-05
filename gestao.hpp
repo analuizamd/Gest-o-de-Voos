@@ -18,6 +18,8 @@ public:
     void cadastrarVoo();
     void addAstronautaVoo();
     void removerAstronauta();
+    void lancarVoo();
+    void explodirVoo();
 };
 
 
