@@ -1,5 +1,9 @@
+#ifndef ASTRONAUTA_HPP
+#define ASTRONAUTA_HPP
+
 #include <string>
 #include <list>
+
 using namespace std;
 
 class astronauta {
@@ -12,21 +16,15 @@ private:
     list<int> Voos;
  
 public:
-    astronauta(string nome, string cpf, int idade){
-        Nome = nome;
-        CPF = cpf;
-        Idade = idade;
-        Disponibilidade = true;
-        Vida = true;
-    }
+    astronauta(string nome, string cpf, int idade);
 
+    string getNome() const;
+    string getCPF() const;
+    int getIdade() const;
+    bool getDisponibilidade() const;
+    bool getVida() const;
+
+    void setDisponibilidade(bool disponibilidade);
 };
 
-// bool getVida() {
-//         return Vida;
-//     }
-
-//     void setVida(bool vivo) {
-//         Vida = vivo;
-//     }
-// astro.setVida(false);
+#endif // ASTRONAUTA_HPP

@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include "gestao.hpp"
+
 using namespace std;
 using std::string;
 
@@ -19,22 +21,25 @@ void imprimeMenu(){
 
 int main(){
 
+    gestao sistema;
     int operacao;
     do{
         imprimeMenu();
         cin >> operacao;
+        cin.ignore(); //Limpar buffer de entrada
+
         switch(operacao){
             case 1:
-                //função cadastrar astronauta
+                sistema.cadastrarAstronauta();
                 break;
             case 2:
-                //função cadastrar voo
+                sistema.cadastrarVoo();
                 break;
             case 3:
-                //função para adicionar astronauta em voo
+                sistema.addAstronautaVoo();
                 break;
             case 4:
-                //função para remover astronauta de um voo
+                sistema.removerAstronauta();
                 break;
             case 5:
                 //função para lançar um voo
