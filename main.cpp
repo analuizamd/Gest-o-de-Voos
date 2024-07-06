@@ -64,5 +64,4 @@ int main(){
                 cout << "Opção inválida. Tente novamente.\n";
         }
     }while(operacao!=10);
-
 };
