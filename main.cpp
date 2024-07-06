@@ -45,7 +45,7 @@ int main(){
                 sistema.lancarVoo();
                 break;
             case 6:
-                //função para explodir um voo
+                sistema.explodirVoo();
                 break;
             case 7:
                 //função para finalizar um voo

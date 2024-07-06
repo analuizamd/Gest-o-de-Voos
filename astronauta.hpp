@@ -26,6 +26,7 @@ public:
 
     void setDisponibilidade(bool disponibilidade);
     void adicionarVoo(int codigo);
+    void setVida(bool vida);
 };
 
 #endif // ASTRONAUTA_HPP

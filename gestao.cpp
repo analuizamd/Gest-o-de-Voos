@@ -299,6 +299,59 @@ void gestao::lancarVoo(){
 }
 
 void gestao::explodirVoo(){
-    
+    int codigoVoo;
+
+    if(todosVoos.empty()){
+        cout << "Nenhum voo foi cadastrado até o momento."<< endl;
+        return;
+    }
+
+    cout << "Operação explodir voo." << endl;
+
+    cout << "Digite o código do voo: ";
+    cin >> codigoVoo;
+
+    // Procurar o voo na lista de voos cadastrados
+    voo* vooEncontrado = nullptr;
+    for (auto& v : todosVoos) {
+        if (v.getCodigo() == codigoVoo) {
+            vooEncontrado = &v;
+            break;
+        }
+    }
+
+    if (!vooEncontrado) {
+        cout << "Erro: Voo não encontrado." << endl;
+        return;
+    }
+
+    // Verificar se o estado do voo foi lançado
+    if (vooEncontrado->getEstado() != LANCADO) {
+        cout << "Erro: O voo não foi lançado." << endl;
+        return;
+    }
+
+    // Explodir o voo alterando seu estado para EXPLODIDO
+    vooEncontrado->setEstado(EXPLODIDO);
+    cout << "Voo explodido com sucesso! Todos os astronautas do voo faleceram." << endl;
+
+    // Modificar o estado de vida dos astronautas do voo para false
+    for (auto& astro : vooEncontrado->getTripulantes()) {
+        astro.setVida(false);
+    }
+
+
+
+    cout << "Estado dos astronautas após a explosão do voo:" << endl;
+    for (const auto& astro : vooEncontrado->getTripulantes()) {
+        cout << "Astronauta: " << astro.getNome();
+        if (astro.getVida()) {
+            cout << " - Vivo" << endl;
+        } else {
+            cout << " - Morto" << endl;
+        }
+    }
+
+
 }
 
