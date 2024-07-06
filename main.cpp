@@ -6,7 +6,7 @@ using namespace std;
 using std::string;
 
 void imprimeMenu(){
-    cout << "Bem vindo! Selecione uma das opções.\n";
+    cout << "Selecione uma das opções.\n";
     cout << "(1)Cadastrar astronauta\n";
     cout << "(2)Cadastrar voo\n";
     cout << "(3)Adicionar astronauta em voo\n";
@@ -21,6 +21,7 @@ void imprimeMenu(){
 
 int main(){
 
+    cout<< "Bem vindo! ";
     gestao sistema;
     int operacao;
     do{
@@ -36,7 +37,7 @@ int main(){
                 sistema.cadastrarVoo();
                 break;
             case 3:
-                sistema.addAstronautaVoo();
+                sistema.addAstronautaVoo(); //ajeitar
                 break;
             case 4:
                 sistema.removerAstronauta();
@@ -45,14 +46,13 @@ int main(){
                 sistema.lancarVoo();
                 break;
             case 6:
-                sistema.explodirVoo();
+                sistema.explodirVoo(); //ajeitar
                 break;
             case 7:
-                //função para finalizar um voo
+                sistema.finalizarVoo();
                 break;
             case 8:
-                //função para listar todos os voos
-                //a lista do astronauta é atualizada
+                sistema.listarTodosVoos();
                 break;
             case 9:
                 //função para listar todos os astronautas mortos
@@ -65,4 +65,4 @@ int main(){
         }
     }while(operacao!=10);
 
-}
+};

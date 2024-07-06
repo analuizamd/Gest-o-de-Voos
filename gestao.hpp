@@ -16,10 +16,12 @@ private:
 public:
     void cadastrarAstronauta();
     void cadastrarVoo();
-    void addAstronautaVoo();
+    void addAstronautaVoo(); //Ajeitar
     void removerAstronauta();
     void lancarVoo();
-    void explodirVoo();
+    void explodirVoo();//Ajeitar
+    void finalizarVoo();
+    void listarTodosVoos();
 };
 
 

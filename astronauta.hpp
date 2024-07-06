@@ -6,27 +6,35 @@
 
 using namespace std;
 
+enum estadoVida{
+    VIVO,
+    MORTO
+};
+
 class astronauta {
 private:
     string Nome;
     string CPF;
     int Idade;
     bool Disponibilidade;
-    bool Vida;
+    estadoVida Vida;
+    // bool Vida;
     list<int> Voos;
  
 public:
-    astronauta(string nome, string cpf, int idade);
+    astronauta(string nome, string cpf, int idade, estadoVida vida);
 
     string getNome() const;
     string getCPF() const;
     int getIdade() const;
     bool getDisponibilidade() const;
-    bool getVida() const;
+    estadoVida getVida() ;
+    // bool getVida() const;
 
     void setDisponibilidade(bool disponibilidade);
     void adicionarVoo(int codigo);
-    void setVida(bool vida);
+    void setVida(estadoVida novoEstadoVida);
+    // void setVida(bool vida);
 };
 
 #endif // ASTRONAUTA_HPP

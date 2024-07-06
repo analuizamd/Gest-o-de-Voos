@@ -20,7 +20,7 @@ list<astronauta> voo::getTripulantes() {
 }
 
 
-// const list<astronauta>& voo::getTripulantes() const {
+// const list<astronauta*>& voo::getTripulantes() const {
 //     return Tripulantes;
 // }
 
