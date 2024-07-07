@@ -18,7 +18,6 @@ private:
     int Idade;
     bool Disponibilidade;
     estadoVida Vida;
-    // bool Vida;
     list<int> Voos;
  
 public:
@@ -29,12 +28,12 @@ public:
     int getIdade() const;
     bool getDisponibilidade() const;
     estadoVida getVida() ;
-    // bool getVida() const;
 
     void setDisponibilidade(bool disponibilidade);
     void adicionarVoo(int codigo);
     void setVida(estadoVida novoEstadoVida);
-    // void setVida(bool vida);
+    const list<int>& getVoos() const; 
+ 
 };
 
 #endif // ASTRONAUTA_HPP

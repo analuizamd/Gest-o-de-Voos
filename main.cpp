@@ -37,16 +37,16 @@ int main(){
                 sistema.cadastrarVoo();
                 break;
             case 3:
-                sistema.addAstronautaVoo(); //ajeitar
+                sistema.addAstronautaVoo();
                 break;
             case 4:
-                sistema.removerAstronauta(); //revisar
+                sistema.removerAstronauta();
                 break;
             case 5:
                 sistema.lancarVoo();
                 break;
             case 6:
-                sistema.explodirVoo(); //ajeitar
+                sistema.explodirVoo();
                 break;
             case 7:
                 sistema.finalizarVoo();

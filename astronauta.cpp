@@ -8,8 +8,6 @@ astronauta::astronauta(string nome, string cpf, int idade, estadoVida vida) {
     Idade = idade;
     Disponibilidade = true;
     Vida = vida;
-
-    // Vida = true;
 }
 
 string astronauta::getNome() const {
@@ -32,17 +30,9 @@ estadoVida astronauta::getVida() {
     return Vida;
 }
 
-// bool astronauta::getVida() const{
-//     return Vida;
-// }
-
 void astronauta::setDisponibilidade(bool disponibilidade) {
     Disponibilidade = disponibilidade;
 }
-
-// void astronauta::setVida(bool vida) {
-//     Vida = vida;
-// }
 
 void astronauta::adicionarVoo(int codigo) {
     Voos.push_back(codigo);
@@ -50,4 +40,8 @@ void astronauta::adicionarVoo(int codigo) {
 
 void astronauta::setVida(estadoVida novoEstadoVida) {
     Vida = novoEstadoVida;
+}
+
+const list<int>& astronauta::getVoos() const {
+    return Voos;
 }
