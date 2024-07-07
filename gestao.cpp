@@ -425,7 +425,7 @@ void gestao::listarTodosVoos(){
     };
     // Listar voos por estado
     listarVoosPorEstado(PLANEJADO, "Planejados");
-    listarVoosPorEstado(LANCADO, "Lançados");
+    listarVoosPorEstado(LANCADO, "Em curso");
     listarVoosPorEstado(EXPLODIDO, "Finalizados sem sucesso(explodidos)");
     listarVoosPorEstado(FINALIZADO, "Finalizados com sucesso");
 }
