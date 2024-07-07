@@ -261,41 +261,46 @@ void gestao::lancarVoo(){
         cout << "Erro: O voo já foi lançado ou não está planejado." << endl;
         return;
     }
-
-    //Verifica disponibilidade dos astronautas
-    bool astroSim = true;
-    for(auto& astroGlobal : todosAstronautas){
-        for(auto astroAtual : vooEncontrado->getTripulantes()){
-            if(astroGlobal.getCPF() == astroAtual.getCPF() && astroGlobal.getDisponibilidade() == false){
-                cout << "Erro: O astronauta " << astroGlobal.getNome() << " não está disponível." << endl;
-                astroSim = false;
-            }
-        }
-    }
-    if(astroSim = false){
-        return; //ajeitar
-    }
-
-        // Atualizar disponibilidade dos astronautas e adicionar o voo
+    else if(vooEncontrado->getEstado() == PLANEJADO){
+        
+        //Verifica disponibilidade dos astronautas
+        bool astroSim = true;
         for(auto& astroGlobal : todosAstronautas){
-            for(auto& astroAtual : vooEncontrado->getTripulantes()){
-                if(astroGlobal.getCPF() == astroAtual.getCPF()){
-                    astroGlobal.setDisponibilidade(false);
-                    astroGlobal.adicionarVoo(codigoVoo);
+            for(auto astroAtual : vooEncontrado->getTripulantes()){
+                if(astroGlobal.getCPF() == astroAtual.getCPF() && astroGlobal.getDisponibilidade() == false){
+                    cout << "Erro: O astronauta " << astroGlobal.getNome() << " não está disponível." << endl;
+                    astroSim = false;
                 }
             }
+        }
+        if(astroSim == false){
+            return;
+        }
+        else{
+            
+            // Atualizar disponibilidade dos astronautas e adicionar o voo
+            for(auto& astroGlobal : todosAstronautas){
+                for(auto& astroAtual : vooEncontrado->getTripulantes()){
+                    if(astroGlobal.getCPF() == astroAtual.getCPF()){
+                        astroGlobal.setDisponibilidade(false);
+                        astroGlobal.adicionarVoo(codigoVoo);
+                    }
+                }
 
+            }
+
+            // Lançar o voo alterando seu estado para LANCADO
+            vooEncontrado->setEstado(LANCADO);
+            cout << "Voo lançado com sucesso!" << endl;
+
+            // Atualizar a lista de voos de todos os astronautas
+            for (auto& astro : vooEncontrado->getTripulantes()) {
+                astro.adicionarVoo(codigoVoo);
+            }
         }
 
-    // Lançar o voo alterando seu estado para LANCADO
-    vooEncontrado->setEstado(LANCADO);
-    cout << "Voo lançado com sucesso!" << endl;
 
-    // Atualizar a lista de voos de todos os astronautas
-    for (auto& astro : vooEncontrado->getTripulantes()) {
-        astro.adicionarVoo(codigoVoo);
     }
-
 }
 
 void gestao::explodirVoo(){
