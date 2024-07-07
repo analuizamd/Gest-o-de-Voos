@@ -55,7 +55,7 @@ int main(){
                 sistema.listarTodosVoos();
                 break;
             case 9:
-                //função para listar todos os astronautas mortos
+                sistema.listarMortos();
                 break;
             case 10:
                 cout << "Operação concluída!\n";

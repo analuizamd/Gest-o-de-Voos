@@ -85,12 +85,12 @@ void gestao::addAstronautaVoo(){
     int codigoVoo;
 
     if(todosAstronautas.empty()){
-        cout << "Nenhum astronauta foi cadastrado até o momento."<< endl;
+        cout << "Nenhum astronauta foi cadastrado."<< endl;
         return;
     }
 
     if(todosVoos.empty()){
-        cout << "Nenhum voo foi cadastrado até o momento."<< endl;
+        cout << "Nenhum voo foi cadastrado."<< endl;
         return;
     }
 
@@ -169,12 +169,12 @@ void gestao::removerAstronauta(){
     int codigoVoo;
 
     if(todosAstronautas.empty()){
-        cout << "Nenhum astronauta foi cadastrado até o momento."<< endl;
+        cout << "Nenhum astronauta foi cadastrado."<< endl;
         return;
     }
 
     if(todosVoos.empty()){
-        cout << "Nenhum voo foi cadastrado até o momento."<< endl;
+        cout << "Nenhum voo foi cadastrado."<< endl;
         return;
     }
 
@@ -239,7 +239,7 @@ void gestao::lancarVoo(){
     int codigoVoo;
 
     if(todosVoos.empty()){
-        cout << "Nenhum voo foi cadastrado até o momento."<< endl;
+        cout << "Nenhum voo foi cadastrado."<< endl;
         return;
     }
 
@@ -302,7 +302,7 @@ void gestao::explodirVoo(){
     int codigoVoo;
 
     if(todosVoos.empty()){
-        cout << "Nenhum voo foi cadastrado até o momento."<< endl;
+        cout << "Nenhum voo foi cadastrado."<< endl;
         return;
     }
 
@@ -372,7 +372,7 @@ void gestao::finalizarVoo(){
     int codigoVoo;
 
     if(todosVoos.empty()){
-        cout << "Nenhum voo foi cadastrado até o momento."<< endl;
+        cout << "Nenhum voo foi cadastrado."<< endl;
         return;
     }
 
@@ -416,7 +416,7 @@ void gestao::finalizarVoo(){
 void gestao::listarTodosVoos(){
 
     if(todosVoos.empty()){
-        cout << "Nenhum voo foi cadastrado até o momento."<< endl;
+        cout << "Nenhum voo foi cadastrado."<< endl;
         return;
     }
 
@@ -446,4 +446,31 @@ void gestao::listarTodosVoos(){
     listarVoosPorEstado(LANCADO, "Lançados");
     listarVoosPorEstado(EXPLODIDO, "Finalizados sem sucesso(explodidos)");
     listarVoosPorEstado(FINALIZADO, "Finalizados com sucesso");
+}
+
+void gestao::listarMortos(){
+    cout << "Lista de astronautas mortos:" << endl;
+
+    bool encontrou = false;
+    for (auto& astro : todosAstronautas) {
+        if (astro.getVida() == MORTO) {
+            encontrou = true;
+            cout << "Nome: " << astro.getNome() << endl;
+            cout << "CPF: " << astro.getCPF() << endl;
+            cout << "Voos em que participou: ";
+            for (const auto& v : todosVoos) {
+                for (const auto& tripulante : v.getTripulantes()) {
+                    if (tripulante.getCPF() == astro.getCPF()) {
+                        cout << v.getCodigo() << " ";
+                        break;
+                    }
+                }
+            }
+            cout << endl << "--------------------------" << endl;
+        }
+    }
+
+    if (!encontrou) {
+        cout << "Nenhum astronauta morto encontrado." << endl;
+    }
 }

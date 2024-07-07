@@ -22,6 +22,7 @@ public:
     void explodirVoo();//Ajeitar
     void finalizarVoo();
     void listarTodosVoos();
+    void listarMortos();
 };
 
 
