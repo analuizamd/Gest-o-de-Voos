@@ -112,18 +112,12 @@ void gestao::addAstronautaVoo(){
         return;
     }
 
-    // Verificar disponibilidade e vida do astronauta encontrado
-    if (!encontrado->getDisponibilidade()) {
-        cout << "Erro: Astronauta não disponível." << endl;
+    //Verifica se o astronauta esta vivo
+    if(encontrado->getVida() == MORTO){
+        cout << "** Infelizmente este astronauta faleceu." << endl;
         return;
     }
-
-    // if (!encontrado->getVida()) {
-    //     cout << "Erro: O astronauta não está vivo." << endl;
-    //     return;
-    // }
-
-    //Código acima não funciona
+ 
 
     cout << "Digite o código do voo: ";
     cin >> codigoVoo;
@@ -157,9 +151,6 @@ void gestao::addAstronautaVoo(){
 
     // Adicionar o astronauta ao voo
     vooEncontrado->adicionarAstronauta(*encontrado);
-
-    // Definir disponibilidade como false após verificação
-    // encontrado->setDisponibilidade(false);
 
     cout << "Astronauta adicionado ao voo com sucesso!" << endl;
 }
@@ -228,9 +219,6 @@ void gestao::removerAstronauta(){
     // Remover o astronauta do voo
     vooEncontrado->removerAstronauta(cpf);
 
-    // Atualizar a disponibilidade do astronauta para verdadeiro
-    encontrado->setDisponibilidade(true);
-
     cout << "Astronauta removido do voo com sucesso!" << endl;
 
 }
@@ -262,25 +250,42 @@ void gestao::lancarVoo(){
         return;
     }
 
+   //Verificar se há pelo menos um astronauta no voo
+    if (vooEncontrado->getTripulantes().empty()) {
+        cout << "Erro: Não há astronautas cadastrados no voo." << endl;
+        return;
+    }
+
     // Verificar se o estado do voo é planejado
     if (vooEncontrado->getEstado() != PLANEJADO) {
         cout << "Erro: O voo já foi lançado ou não está planejado." << endl;
         return;
     }
 
-    //Verifica se há pelo menos um astronauta no voo
-    if (vooEncontrado->getTripulantes().empty()) {
-        cout << "Erro: Não há astronautas cadastrados no voo." << endl;
+    //Verifica disponibilidade dos astronautas
+    bool astroSim = true;
+    for(auto& astroGlobal : todosAstronautas){
+        for(auto astroAtual : vooEncontrado->getTripulantes()){
+            if(astroGlobal.getCPF() == astroAtual.getCPF() && astroGlobal.getDisponibilidade() == false){
+                cout << "Erro: O astronauta " << astroGlobal.getNome() << " não está disponível." << endl;
+                astroSim = false;
+            }
+        }
+    }
+    if(astroSim = false){
         return;
     }
 
-    //Verificar se todos os astronautas do voo estão disponíveis
-    for (const auto& astro : vooEncontrado->getTripulantes()) {
-        if (!astro.getDisponibilidade()) {
-            cout << "Erro: O astronauta " << astro.getNome() << " não está disponível." << endl;
-            return;
+        // Atualizar disponibilidade dos astronautas e adicionar o voo
+        for(auto& astroGlobal : todosAstronautas){
+            for(auto& astroAtual : vooEncontrado->getTripulantes()){
+                if(astroGlobal.getCPF() == astroAtual.getCPF()){
+                    astroGlobal.setDisponibilidade(false);
+                    astroGlobal.adicionarVoo(codigoVoo);
+                }
+            }
+
         }
-    }
 
     // Lançar o voo alterando seu estado para LANCADO
     vooEncontrado->setEstado(LANCADO);
@@ -335,36 +340,20 @@ void gestao::explodirVoo(){
     vooEncontrado->setEstado(EXPLODIDO);
     cout << "Voo explodido com sucesso! Todos os astronautas do voo faleceram." << endl;
 
-    // Modificar o estado de vida dos astronautas do voo para MORTO
-    for (auto& astro : vooEncontrado->getTripulantes()) {
-        astro.setVida(MORTO);
-    }
-
-    // Mostrar o estado atual dos astronautas após a explosão do voo
-    cout << "Estado dos astronautas após a explosão do voo:" << endl;
-    for (auto& astro : vooEncontrado->getTripulantes()) {
-        cout << "Astronauta: " << astro.getNome();
-        if (astro.getVida() == VIVO) {
-            cout << " - Vivo" << endl;
-        } else {
-            cout << " - Morto" << endl;
+    // Atualizar disponibilidade dos astronautas e vida
+    for(auto& astroGlobal : todosAstronautas){
+        for(auto& astroAtual : vooEncontrado->getTripulantes()){
+            if(astroGlobal.getCPF() == astroAtual.getCPF()){
+                astroGlobal.setDisponibilidade(false);
+                astroGlobal.setVida(MORTO);
+            }
         }
+
     }
-    // Modificar o estado de vida dos astronautas do voo para false
-    // for (auto& astro : vooEncontrado->getTripulantes()) {
-    //     astro.setVida(false);
-    // }
-
-    // cout << "Estado dos astronautas após a explosão do voo:" << endl;
-    // for (const auto& astro : vooEncontrado->getTripulantes()) {
-    //     cout << "Astronauta: " << astro.getNome();
-    //     if (astro.getVida() == false) {
-    //         cout << " - Morto" << endl;
-    //     } else if (astro.getVida() == true) {
-    //         cout << " - Vivo" << endl;
-    //     }
-    // }
-
+    // Modificar o estado de vida dos astronautas do voo para MORTO
+        for (auto& astro : vooEncontrado->getTripulantes()) {
+            astro.setVida(MORTO);
+        }
 
 }
 
@@ -405,7 +394,16 @@ void gestao::finalizarVoo(){
     vooEncontrado->setEstado(FINALIZADO);
     cout << "Voo finalizado com sucesso!" << endl;
 
-    //Deixar astronautas disponíveis (não funciona)
+    //Deixar astronautas disponíveis
+        for(auto& astroGlobal : todosAstronautas){
+        for(auto& astroAtual : vooEncontrado->getTripulantes()){
+            if(astroGlobal.getCPF() == astroAtual.getCPF()){
+                astroGlobal.setDisponibilidade(true);
+            }
+        }
+    }
+
+    //cod antigo
     for (auto& astro : vooEncontrado->getTripulantes()) {
         astro.setDisponibilidade(true);
     }
@@ -449,28 +447,28 @@ void gestao::listarTodosVoos(){
 }
 
 void gestao::listarMortos(){
-    cout << "Lista de astronautas mortos:" << endl;
+//     cout << "Lista de astronautas mortos:" << endl;
 
-    bool encontrou = false;
-    for (auto& astro : todosAstronautas) {
-        if (astro.getVida() == MORTO) {
-            encontrou = true;
-            cout << "Nome: " << astro.getNome() << endl;
-            cout << "CPF: " << astro.getCPF() << endl;
-            cout << "Voos em que participou: ";
-            for (const auto& v : todosVoos) {
-                for (const auto& tripulante : v.getTripulantes()) {
-                    if (tripulante.getCPF() == astro.getCPF()) {
-                        cout << v.getCodigo() << " ";
-                        break;
-                    }
-                }
-            }
-            cout << endl << "--------------------------" << endl;
-        }
-    }
+//     bool encontrou = false;
+//     for (auto& astro : todosAstronautas) {
+//         if (astro.getVida() == MORTO) {
+//             encontrou = true;
+//             cout << "Nome: " << astro.getNome() << endl;
+//             cout << "CPF: " << astro.getCPF() << endl;
+//             cout << "Voos em que participou: ";
+//             for (const auto& v : todosVoos) {
+//                 for (const auto& tripulante : v.getTripulantes()) {
+//                     if (tripulante.getCPF() == astro.getCPF()) {
+//                         cout << v.getCodigo() << " ";
+//                         break;
+//                     }
+//                 }
+//             }
+//             cout << endl << "--------------------------" << endl;
+//         }
+//     }
 
-    if (!encontrou) {
-        cout << "Nenhum astronauta morto encontrado." << endl;
-    }
+//     if (!encontrou) {
+//         cout << "Nenhum astronauta morto encontrado." << endl;
+//     }
 }

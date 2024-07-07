@@ -26,7 +26,7 @@ public:
     estadoVoo getEstado();
     list<astronauta> getTripulantes();
 
-    const list<astronauta>& getTripulantes() const;
+    // const list<astronauta>& getTripulantes() const;
     // list<astronauta>& getTripulantes();
    
     void adicionarAstronauta(const astronauta& astro);

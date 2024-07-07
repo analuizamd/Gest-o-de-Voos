@@ -40,7 +40,7 @@ int main(){
                 sistema.addAstronautaVoo(); //ajeitar
                 break;
             case 4:
-                sistema.removerAstronauta();
+                sistema.removerAstronauta(); //revisar
                 break;
             case 5:
                 sistema.lancarVoo();
