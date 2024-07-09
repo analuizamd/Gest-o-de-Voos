@@ -19,5 +19,5 @@ source/astronauta.o: astronauta.cpp astronauta.hpp
 	g++ ${FLAGS} -c astronauta.cpp -o source/astronauta.o
 
 source/voo.o: voo.cpp voo.hpp
-	g++ ${FLAGS} -c voo.cpp -o source/voo.o
+	g++ ${FLAGS} -c voo.cpp -o source/voo.o
 	
